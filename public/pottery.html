@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pottery Classes</title>
+    <style>
+        body {
+            font-family: 'IBM Plex Serif', serif;
+            background-color: #fff8dc;
+            color: #8B4513;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: #DEB887;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 4px solid #8B4513;
+        }
+
+        .class-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .class-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 4px 4px 0 rgba(139, 69, 19, 0.2);
+            border: 2px solid #8B4513;
+        }
+
+        .register-button {
+            background: #8B4513;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .register-button:hover {
+            background: #CD853F;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Pottery Classes</h1>
+            <p>Discover the joy of creating with clay</p>
+        </div>
+
+        <div class="class-grid">
+            <div class="class-card">
+                <h2>Beginner's Pottery</h2>
+                <p>Learn the basics of hand-building and wheel throwing.</p>
+                <button class="register-button">Register Now</button>
+            </div>
+            <div class="class-card">
+                <h2>Intermediate Wheel</h2>
+                <p>Perfect your wheel throwing techniques.</p>
+                <button class="register-button">Register Now</button>
+            </div>
+            <div class="class-card">
+                <h2>Decorative Techniques</h2>
+                <p>Learn glazing and surface decoration.</p>
+                <button class="register-button">Register Now</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

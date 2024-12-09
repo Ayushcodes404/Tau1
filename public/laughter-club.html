@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Senior Laughter Club</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+            color: #6c757d;
+        }
+
+        .header {
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1517242027094-631f8c218a0f?auto=format&fit=crop&w=1500');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            color: #ffecd1;
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: titleAppear 2s forwards, floatingText 3s ease-in-out infinite;
+        }
+
+        @keyframes titleAppear {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatingText {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .header p {
+            font-size: 1.5rem;
+            color: #ffecd1;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            margin-top: 0;
+            opacity: 0;
+            animation: fadeIn 2s 0.5s forwards;
+        }
+
+        .registration {
+            background: linear-gradient(135deg, #fff0e6, #fff9f5);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px auto;
+            max-width: 600px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .registration input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #ffffff;
+        }
+
+        .registration button {
+            background: linear-gradient(135deg, #ffb6b6, #ffd6d6);
+            color: #7c98b3;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .registration button:hover {
+            background: linear-gradient(135deg, #ffd6d6, #ffe6e6);
+        }
+
+        .accessibility-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .voice-input-button {
+            background: #ffb6b6;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .error-message {
+            background: #ffe6e6;
+            color: #ff4444;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        /* High contrast mode */
+        .high-contrast {
+            background: #000 !important;
+            color: #fff !important;
+        }
+
+        .high-contrast .header {
+            background: #000 !important;
+        }
+
+        .high-contrast .registration {
+            background: #333 !important;
+            color: #fff !important;
+        }
+
+        .high-contrast input {
+            background: #000 !important;
+            color: #fff !important;
+            border: 2px solid #fff !important;
+        }
+
+        .high-contrast button {
+            background: #fff !important;
+            color: #000 !important;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="accessibility-controls">
+        <button onclick="toggleHighContrast()" aria-label="Toggle high contrast mode">🌓</button>
+        <button onclick="toggleTextToSpeech()" aria-label="Toggle text to speech">🔊</button>
+        <input type="range" min="1" max="2" step="0.1" value="1" onchange="adjustFontSize(this.value)" aria-label="Adjust font size">
+    </div>
+
+    <div class="header">
+        <h1>Welcome to Laughter Club</h1>
+        <p>Where every smile adds years to your life!</p>
+    </div>
+
+    <div class="registration">
+        <h2>Find Laughter Clubs Near You</h2>
+        <div class="error-message" id="errorMessage"></div>
+        <input type="text" id="name" placeholder="Enter your name" aria-label="Enter your name">
+        <button class="voice-input-button" onclick="startVoiceInput('name')" aria-label="Use voice input for name">🎤</button>
+        
+        <input type="text" id="location" placeholder="Enter your location" aria-label="Enter your location">
+        <button class="voice-input-button" onclick="startVoiceInput('location')" aria-label="Use voice input for location">🎤</button>
+        
+        <button onclick="findNearbyClubs()" style="font-size: 1.2rem;">Find Nearby Clubs</button>
+    </div>
+
+    <script>
+        // Voice recognition setup
+        if (annyang) {
+            const commands = {
+                'increase font size': function() {
+                    adjustFontSize(Math.min(parseFloat(document.body.style.fontSize || 1) + 0.1, 2));
+                },
+                'decrease font size': function() {
+                    adjustFontSize(Math.max(parseFloat(document.body.style.fontSize || 1) - 0.1, 1));
+                },
+                'reset font size': function() {
+                    adjustFontSize(1);
+                }
+            };
+            annyang.addCommands(commands);
+            annyang.start();
+        }
+
+        function startVoiceInput(field) {
+            if (annyang) {
+                annyang.addCallback('result', function(phrases) {
+                    document.getElementById(field).value = phrases[0];
+                    annyang.removeCallback('result');
+                });
+            }
+        }
+
+        // Accessibility functions
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast');
+        }
+
+        function adjustFontSize(scale) {
+            document.body.style.fontSize = scale + 'em';
+        }
+
+        let isSpeechEnabled = false;
+        function toggleTextToSpeech() {
+            isSpeechEnabled = !isSpeechEnabled;
+        }
+
+        function speak(text) {
+            if (isSpeechEnabled && window.speechSynthesis) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function findNearbyClubs() {
+            const name = document.getElementById('name').value;
+            const location = document.getElementById('location').value;
+            
+            if (!name || !location) {
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Please enter both your name and location';
+                speak('Please enter both your name and location');
+                return;
+            }
+
+            // Simulate finding clubs
+            speak('Finding laughter clubs near you');
+            // Add your club finding logic here
+        }
+    </script>
+</body>
+</html>
