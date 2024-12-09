@@ -1,0 +1,70 @@
+{
+  "app": {
+    "title": "TAU",
+    "subtitle": "Technology Assistance & Understanding",
+    "home": "Home"
+  },
+  "features": {
+    "learn": {
+      "title": "Learn Basic Mobile Operations",
+      "description": "Learn how to use your smartphone step by step: calling, texting, WhatsApp, and more!",
+      "button": "Start Learning"
+    },
+    "memories": {
+      "title": "Revisit Your Memories",
+      "description": "View and organize your photos, convert B&W photos to color, and create memory albums.",
+      "button": "Open Album"
+    },
+    "health": {
+      "title": "Health and Wellness",
+      "description": "Set health reminders and join virtual yoga sessions for a healthier lifestyle.",
+      "button": "Health & Wellness"
+    },
+    "activities": {
+      "title": "Activities",
+      "description": "Join fun activities like laughter club, pottery classes, and social gatherings.",
+      "button": "Join Activities"
+    }
+  },
+  "learn": {
+    "title": "Learn Basic Mobile Operations",
+    "backToLessons": "Back to Lessons",
+    "step": "Step",
+    "of": "of",
+    "lessons": {
+      "calling": {
+        "title": "Making Calls",
+        "steps": {
+          "1": {
+            "title": "Opening Phone App",
+            "content": "Tap the green phone icon on your screen"
+          },
+          "2": {
+            "title": "Dialing Number",
+            "content": "Type the phone number using the keypad and press the green call button"
+          }
+        }
+      },
+      "messaging": {
+        "title": "Messaging",
+        "steps": {
+          "1": {
+            "title": "Opening Messages",
+            "content": "Find and tap the Messages app"
+          },
+          "2": {
+            "title": "Writing a Message",
+            "content": "Type your message using the keyboard and press send"
+          }
+        }
+      }
+    },
+    "buttons": {
+      "start": "Start Lesson",
+      "review": "Review Lesson",
+      "next": "Next Step",
+      "complete": "Complete Lesson",
+      "back": "Back to Lessons"
+    }
+  }
+}
